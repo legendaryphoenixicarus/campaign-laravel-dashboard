@@ -11,8 +11,8 @@
                       <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">NEW RULE</button>
                         <div class="dropdown-menu">
-                            @foreach (config('app.actions') as $action)
-                                <a class="dropdown-item" href="{{ url('/rules/create?action_id=' . $loop->index) }}">{{ $action }}</a>
+                            @foreach (config('app.actions') as $value => $action)
+                                <a class="dropdown-item" href="{{ url('/rules/create?action_id=' . $value) }}">{{ $action }}</a>
                             @endforeach
                         </div>
                       </div>
