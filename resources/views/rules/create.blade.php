@@ -26,18 +26,42 @@
                             <div class="form-group">
                                 <label for="" class="col-6 control-label">If</label>
                                 <div class="col-md-12 form-inline">
-                                    <div class="inline-block">  
-                                        <select name="conditions[0][source]" class="form-control">
-                                            <option selected>Campaign Spend</option>
+                                    <div class="inline-block">
+                                        <select name="conditions[][source]" class="form-control">
+                                            <option value="campaign.cost" selected>Campaign Spend</option>
                                         </select>
                                     </div>&nbsp
                                     <div class="inline-block">
-                                        <select name="conditions[0][operation]" class="form-control">
-                                            <option selected>> greater than</option>
+                                        <select name="conditions[][operation]" class="form-control">
+                                            <option value=">" selected>> greater than</option>
                                         </select>
                                     </div>&nbsp
                                     <div class="inline-block">
-                                        <input type="text" name="conditions[0][value]" value="10.00" class="form-control" required>
+                                        <input type="text" name="conditions[][value]" value="10.00" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-6 control-label">And</label>
+                                <div class="col-md-12 form-inline">
+                                    <div class="inline-block">
+                                        <select name="conditions[][source]" class="form-control" required>
+                                            <option selected></option>
+                                            @foreach (config('app.action_resources') as $value => $resource)
+                                                <option value="{{ $value }}">{{ $resource }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>&nbsp
+                                    <div class="inline-block">
+                                        <select name="conditions[][operation]" class="form-control" required>
+                                            <option selected></option>
+                                            @foreach (config('app.action_operations') as $value => $operation)
+                                                <option value="{{ $value }}">{{ $operation }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>&nbsp
+                                    <div class="inline-block">
+                                        <input type="text" name="conditions[][value]" value="10.00" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
