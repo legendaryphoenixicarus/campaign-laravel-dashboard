@@ -46,16 +46,16 @@
                                 <div class="col-md-12 form-inline">
                                     <div class="inline-block">
                                         <select name="conditions[][source]" class="form-control" required>
-                                            <option selected></option>
-                                            @foreach (config('app.action_resources') as $value => $resource)
+                                            <option selected>Select Condition Source</option>
+                                            @foreach (config('app.condition_resources') as $value => $resource)
                                                 <option value="{{ $value }}">{{ $resource }}</option>
                                             @endforeach
                                         </select>
                                     </div>&nbsp
                                     <div class="inline-block">
                                         <select name="conditions[][operation]" class="form-control" required>
-                                            <option selected></option>
-                                            @foreach (config('app.action_operations') as $value => $operation)
+                                            <option selected>Select Condition Operation</option>
+                                            @foreach (config('app.condition_operations') as $value => $operation)
                                                 <option value="{{ $value }}">{{ $operation }}</option>
                                             @endforeach
                                         </select>
