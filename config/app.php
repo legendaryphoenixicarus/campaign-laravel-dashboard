@@ -249,8 +249,8 @@ return [
         'update_daily_budget' => 'Update Daily Budget',
     ],
 
-    // resources for rule actions
-    'action_resources' => [
+    // condition_resources for rules
+    'condition_resources' => [
         'campaign.name' => 'Campaign Name',
         'campaign.budget_amount' => 'Daily Budget',
         'campaign.start_date' => 'Campaign Start Date',
@@ -306,8 +306,8 @@ return [
         'publisher.vcpm' => 'Site Viewable CPM'
     ],
 
-    // operations for rules actions
-    'action_operations' => [
+    // condition_operations for rules actions
+    'condition_operations' => [
         '<' => '< less than',
         '=' => '= equals',
         '>' => '> greater than',
