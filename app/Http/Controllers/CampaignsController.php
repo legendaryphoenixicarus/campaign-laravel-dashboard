@@ -54,7 +54,7 @@ class CampaignsController extends Controller
 
         // get campaign level summary report
         $response = $this->get_campaign_data(
-            "https://backstage.taboola.com/backstage/api/1.0/" . env('TABOOLA_API_ACCOUNT_ID') . "/campaigns/?fetch_level=R"
+            "https://backstage.taboola.com/backstage/api/1.0/" . env('TABOOLA_API_ACCOUNT_ID') . "/campaigns"
         );
 
         $campaigns = json_decode($response)->results;
@@ -199,7 +199,7 @@ class CampaignsController extends Controller
                 'dimensions' => 'ga:campaign, ga:sourceMedium',
                 'sort' => '-ga:sessions',
                 'max-results' => 50000,
-                'metrics' => 'ga:sessions, ga:ROAS, ga:pageviewsPerSession, ga:adsenseRevenue,  ga:adsenseAdsClicks, ga:adsensePageImpressions, ga:adsenseCTR, ga:totalPublisherRevenuePer1000Sessions, ga:adsenseCoverage, ga:cpc',
+                'metrics' => 'ga:sessions, ga:ROAS, ga:adsenseRevenue, ga:pageviewsPerSession,  ga:adsenseAdsClicks, ga:adsensePageImpressions, ga:adsenseCTR, ga:totalPublisherRevenuePer1000Sessions, ga:adsenseCoverage, ga:cpc',
             ]
         );
 
@@ -343,7 +343,7 @@ class CampaignsController extends Controller
                     // $publisher->ad_roas = $analytics_report[2];
                     // swap result columns revenue<->views_per_session
                     $publisher->ad_views_per_session = $analytics_report[4];
-                    $publisher->ad_revenue = round($analytics_report[3], 3);
+                    $publisher->ad_revenue = round($analytics_report[4], 3);
                     $publisher->ad_clicks = $analytics_report[5];
                     $publisher->ad_impressions = $analytics_report[6];
                     $publisher->ad_ctr = $analytics_report[7];

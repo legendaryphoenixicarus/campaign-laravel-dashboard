@@ -59,6 +59,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('campaigns/account_level') }}">Publisher Performance</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('rules') }}">Rules</a>
+                                </li>
                             @endif
                         @endauth
                     </ul>

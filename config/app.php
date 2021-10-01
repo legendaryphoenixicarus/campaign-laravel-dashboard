@@ -241,4 +241,12 @@ return [
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
     ],
 
+    // actions for campaign rules
+    'actions' => [
+        'Block Sites',
+        'Update Site Bids',
+        'Update Campaign Bids',
+        'Update Daily Budget',
+    ],
+
 ];
