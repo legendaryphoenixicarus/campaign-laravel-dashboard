@@ -250,6 +250,8 @@ return [
     ],
 
     // condition_resources for rules
+    // Campaign Name,Campaign Bid,Campaign Budget,Campaign Taboola Clicks,Campaign Sessions,Campaign AdSense Clicks ,Campaign Actual CPC,Campaign AdSense CPC,Campaign Taboola CTR,Campaign AdSense CTR,Campaign Coverage,Campaign Total Spend,Campaign Total Revenue,Campaign Profit/Lost,Campaign Ads RPM,Campaign roas
+
     'condition_resources' => [
         'campaign.name' => 'Campaign Name',
         'campaign.budget_amount' => 'Daily Budget',
