@@ -47,7 +47,7 @@
                                     <div class="inline-block">
                                         <select name="conditions[][source]" class="form-control" required>
                                             <option selected>Select Condition Source</option>
-                                            @foreach (config('app.condition_resources') as $value => $resource)
+                                            @foreach (config('app.condition_sources') as $value => $resource)
                                                 <option value="{{ $value }}">{{ $resource }}</option>
                                             @endforeach
                                         </select>

@@ -249,10 +249,10 @@ return [
         'update_daily_budget' => 'Update Daily Budget',
     ],
 
-    // condition_resources for rules
+    // condition_sources for rules
     // Campaign Name,Campaign Bid,Campaign Budget,Campaign Taboola Clicks,Campaign Sessions,Campaign AdSense Clicks ,Campaign Actual CPC,Campaign AdSense CPC,Campaign Taboola CTR,Campaign AdSense CTR,Campaign Coverage,Campaign Total Spend,Campaign Total Revenue,Campaign Profit/Lost,Campaign Ads RPM,Campaign roas
 
-    'condition_resources' => [
+    'condition_sources' => [
         'campaign.name' => 'Campaign Name',
         'campaign.budget_amount' => 'Daily Budget',
         'campaign.start_date' => 'Campaign Start Date',
@@ -306,6 +306,7 @@ return [
         'publisher.visible_impressions' => 'Site Viewable Impressions',
         'publisher.vctr' => 'Site Viewable CTR',
         'publisher.vcpm' => 'Site Viewable CPM'
+
     ],
 
     // condition_operations for rules actions
