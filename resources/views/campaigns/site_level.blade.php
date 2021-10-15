@@ -65,7 +65,11 @@
                                     </th>
                                     <th>
                                         Profit/Lost
-                                        ({{ $total_summary['profit_lost'] }})
+                                        @if ($total_summary['profit_lost'] < 0)
+                                            ({{ $total_summary['profit_lost'] }})
+                                        @else
+                                            {{ $total_summary['profit_lost'] }}
+                                        @endif
                                     </th>
                                     <th>Ads RPM</th>
                                     <th>Roas</th>
