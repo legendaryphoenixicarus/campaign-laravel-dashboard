@@ -150,7 +150,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@3.0.2/src/bootstrap-input-spinner.min.js"></script>
 
 <!-- material switch -->
-<script src="https://mdbootstrap.com/docs/b4/jquery/forms/switch/"></script>
+<!-- <script src="https://mdbootstrap.com/docs/b4/jquery/forms/switch/"></script> -->
 
 
 @stack('scripts')

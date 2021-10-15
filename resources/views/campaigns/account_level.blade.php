@@ -194,7 +194,7 @@
                 success: function(response)
                 {
                     console.log(JSON.parse(response.result));
-                    window.location.href = window.location.href;
+                    // window.location.href = window.location.href;
                 },
                 complete: function (response) {
                     setTimeout(function(){

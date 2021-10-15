@@ -203,9 +203,12 @@
         $(document).on('click', '.set-cpc-modification', function() {
             const campaign = $('#campaign-id').data('campaign-id');
             const site = $(this).closest('tr').data('site');
-            // const bid = $(this).closest('tr').find('.bid').text();
             const avgBoost = $(this).closest('td').find('.avg-boost').val();
             const cpcModification = 1 + avgBoost / 100;
+            
+            // // change bid value for updated value
+            // const bid = $(this).closest('tr').find('.bid').text();
+            // $(this).closest('tr').find('.bid').html(bid * cpcModification);
             
             sendAjaxRequest('/campaigns/' + campaign, "PATCH", {
                 "target": site,
@@ -214,7 +217,7 @@
         })
 
         function sendAjaxRequest(url, method, data) {
-            $("#overlay").fadeIn(300);　
+            $("#overlay").fadeIn(300);
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -225,7 +228,7 @@
                 success: function(response)
                 {
                     console.log(JSON.parse(response.result));
-                    window.location.href = window.location.href;
+                    // window.location.href = window.location.href;
 
                 },
                 complete: function (response) {
