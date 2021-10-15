@@ -126,8 +126,10 @@
 <script>
     $(document).ready(function() {
         // datatables
-        $('#example').DataTable();
-
+        $('#example').DataTable({
+            "pageLength": 20,
+            "lengthMenu": [ 10, 20, 50, 75, 100 ]
+        });
         // daterangepicker
         // var start = moment().subtract(29, 'days');
         var start = moment($('#start-date').data('start-date'));

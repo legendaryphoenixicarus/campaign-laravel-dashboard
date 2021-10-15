@@ -131,7 +131,10 @@
 <script>
     $(document).ready(function() {
         // datatables
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "pageLength": 20,
+            "lengthMenu": [ 10, 20, 50, 75, 100 ]
+        });
 
         // $('#example').on( 'search.dt page.dt order.dt', function () {
         //     // bootstrap toogle button

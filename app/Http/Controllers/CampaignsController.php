@@ -44,20 +44,20 @@ class CampaignsController extends Controller
 
         // get all campaign_level_reports
         $response = $this->get_campaign_data(
-            "https://backstage.taboola.com/backstage/api/1.0/" . env('TABOOLA_API_ACCOUNT_ID') . "/reports/campaign-summary/dimensions/campaign_breakdown?start_date=" . $start_date . "&end_date=" . $end_date . "&include_multi_conversions=true"
+            "https://backstage.taboola.com/backstage/api/1.0/" . env('TABOOLA_API_ACCOUNT_ID') . "/reports/campaign-summary/dimensions/campaign_breakdown?start_date=" . $start_date . "&end_date=" . $end_date . "&include_multi_conversions=true&exclude_empty_campaigns=true"
         );
 
         // // get only details about campaign_level_reports
-        $campaign_level_reports = json_decode($response)->results;
+        $campaign_level_reports = json_decode($response) ? json_decode($response)->results : [];
 
         // dump($campaign_level_reports);
 
-        // get campaign level summary report
+        // get all campaign data
         $response = $this->get_campaign_data(
             "https://backstage.taboola.com/backstage/api/1.0/" . env('TABOOLA_API_ACCOUNT_ID') . "/campaigns"
         );
 
-        $campaigns = json_decode($response)->results;
+        $campaigns = json_decode($response) ? json_decode($response)->results : [];
 
         // curl_close($curl);
 
