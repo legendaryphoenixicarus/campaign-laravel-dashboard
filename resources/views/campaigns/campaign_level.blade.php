@@ -76,7 +76,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($campaign_level_reports as $index => $campaign_level_report)
-                                <tr class="campaign">
+                                <tr class="campaign @if(isset($campaign_level_report->profit_lost)) {{ $campaign_level_report->profit_lost > 0 ? 'table-success' : 'table-danger' }} @endif">
                                     <td>
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input toggle-status" id="switch{{ $index }}" name="example" @if(isset($campaign_level_report->status) && $campaign_level_report->status) {{'checked'}} @endif />

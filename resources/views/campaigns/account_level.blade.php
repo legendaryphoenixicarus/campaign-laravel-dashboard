@@ -74,7 +74,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($publishers as $index => $publisher)
-                                    <tr data-site="{{ $publisher->site }}">
+                                    <tr data-site="{{ $publisher->site }}" class="@if(isset($publisher->profit_lost)) {{ $publisher->profit_lost > 0 ? 'table-success' : 'table-danger' }} @endif">
                                         <td>
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input toggle-status" id="switch{{ $index }}" name="example" @if($publisher->blocking_level == "NONE") {{'checked'}}@endif />

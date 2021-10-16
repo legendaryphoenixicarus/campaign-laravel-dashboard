@@ -81,14 +81,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($summary_reports as $index => $summary_report)
-                                    <tr data-site="{{ $summary_report->site }}">
+                                    <tr data-site="{{ $summary_report->site }}" class="@if(isset($summary_report->profit_lost)) {{ $summary_report->profit_lost > 0 ? 'table-success' : 'table-danger' }} @endif">
                                         <td>
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input toggle-status" id="switch{{ $index }}" name="example" @if($summary_report->blocking_level == "NONE") {{'checked'}}@endif />
                                                 <label class="custom-control-label" for="switch{{ $index }}">{{ $summary_report->blocking_level }}</label>
                                             </div>
                                         </td>
-                                        <td>{{ $summary_report->site_name }}</td>
+                                        <td class="site-name">{{ $summary_report->site_name }}</td>
                                         <!-- <td>{{ $summary_report->visible_impressions }}</td> -->
                                         <td>{{ $summary_report->clicks }}</td>
                                         <td>@if(isset($summary_report->ad_sessions)) {{ $summary_report->ad_sessions }}@endif</td>
