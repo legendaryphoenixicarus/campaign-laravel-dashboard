@@ -52,7 +52,7 @@
                                         Total Revenue
                                         ({{ $total_summary['total_revenue'] }})
                                     </th>
-                                    <th>
+                                    <th class="bg-{{ $total_summary['profit_lost'] < 0 ? 'danger' : 'success' }}">
                                         Profit/Lost
                                         @if ($total_summary['profit_lost'] < 0)
                                             ({{ $total_summary['profit_lost'] }})
@@ -60,7 +60,7 @@
                                             {{ $total_summary['profit_lost'] }}
                                         @endif
                                     </th>
-                                    <th>AdSense RPM</th>
+                                    <th class="bg-primary">AdSense RPM</th>
                                     <th>Roas</th>
                                     <!-- <th>vCTR</th> -->
                                     <!-- <th>Conversion Rate</th> -->
@@ -107,7 +107,7 @@
                                         <!-- profit/lost -->
                                         <td>@if(isset($publisher->profit_lost)) {{ $publisher->profit_lost }} @endif</td>
 
-                                        <td>@if(isset($publisher->ad_rpm)) {{ round($publisher->ad_rpm, 3) }}@endif</td>
+                                        <td class="bg-info">@if(isset($publisher->ad_rpm)) {{ round($publisher->ad_rpm, 3) }}@endif</td>
 
                                         <!-- roas -->
                                         <td>@if(isset($publisher->ad_roas)) {{ $publisher->ad_roas . ' %' }}@endif</td>

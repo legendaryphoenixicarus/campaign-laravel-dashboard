@@ -63,7 +63,7 @@
                                         Total Revenue
                                         ({{ $total_summary['total_revenue'] }})
                                     </th>
-                                    <th>
+                                    <th class="bg-{{ $total_summary['profit_lost'] < 0 ? 'danger' : 'success' }}">
                                         Profit/Lost
                                         @if ($total_summary['profit_lost'] < 0)
                                             ({{ $total_summary['profit_lost'] }})
@@ -71,7 +71,7 @@
                                             {{ $total_summary['profit_lost'] }}
                                         @endif
                                     </th>
-                                    <th>Ads RPM</th>
+                                    <th class="bg-primary">AdSense RPM</th>
                                     <th>Roas</th>
                                     <th>Bid</th>
                                     <th>Avg Boost</th>
@@ -115,7 +115,7 @@
                                         <!-- profit/lost -->
                                         <td>@if(isset($summary_report->profit_lost)) {{ $summary_report->profit_lost }} @endif</td>
                                         
-                                        <td>@if(isset($summary_report->ad_rpm)) {{ round($summary_report->ad_rpm, 3) }}@endif</td>
+                                        <td class="bg-info">@if(isset($summary_report->ad_rpm)) {{ round($summary_report->ad_rpm, 3) }}@endif</td>
                                         <td>@if(isset($summary_report->ad_roas)) {{ $summary_report->ad_roas . ' %' }}@endif</td>
                                         <td class="bid">
                                             {{ round($summary_report->bid, 3, PHP_ROUND_HALF_UP) }}

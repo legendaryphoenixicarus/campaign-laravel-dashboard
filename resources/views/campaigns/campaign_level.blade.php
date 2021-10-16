@@ -61,7 +61,7 @@
                                         Total Revenue
                                         ({{ $total_summary['total_revenue'] }})
                                     </th>
-                                    <th>
+                                    <th class="bg-{{ $total_summary['profit_lost'] < 0 ? 'danger' : 'success' }}">
                                         Profit/Lost
                                         @if ($total_summary['profit_lost'] < 0)
                                             ({{ $total_summary['profit_lost'] }})
@@ -69,7 +69,7 @@
                                             {{ $total_summary['profit_lost'] }}
                                         @endif
                                     </th>
-                                    <th>Ads RPM</th>
+                                    <th class="bg-primary">Ads RPM</th>
                                     <th>Roas</th>
                                     <!-- <th>Pageviews per session</th> -->
                                 </tr>
@@ -116,7 +116,7 @@
                                     <!-- profit/lost -->
                                     <td>@if(isset($campaign_level_report->profit_lost)) {{ $campaign_level_report->profit_lost }} @endif</td>
 
-                                    <td>@if(isset($campaign_level_report->ad_rpm)) {{ round($campaign_level_report->ad_rpm, 2) }}@endif</td>
+                                    <td class="bg-info">@if(isset($campaign_level_report->ad_rpm)) {{ round($campaign_level_report->ad_rpm, 2) }}@endif</td>
                                     <td>@if(isset($campaign_level_report->ad_roas)) {{ $campaign_level_report->ad_roas . ' %' }}@endif</td>
                                     <!-- <td>@if(isset($campaign_level_report->ad_views_per_session)) {{ round($campaign_level_report->ad_views_per_session, 2) }}@endif</td> -->
                                 </tr>
