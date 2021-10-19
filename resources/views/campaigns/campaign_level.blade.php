@@ -29,7 +29,7 @@
                   <div class="card-body">
                       
                       <div class="table-responsive">
-                          Columns: <a class="toggle-vis" data-column="0">Status</a> - <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Bid</a> - <a class="toggle-vis" data-column="3">Budget</a> - <a class="toggle-vis" data-column="4">Taboola Clicks</a> - <a class="toggle-vis" data-column="5">Sessions</a>
+                          Columns: <a class="toggle-vis" data-column="0">Status</a> - <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Bid</a> - <a class="toggle-vis" data-column="3">Budget</a> - <a class="toggle-vis" data-column="4">Taboola Clicks</a> - <a class="toggle-vis" data-column="5">Sessions</a> - <a class="toggle-vis" data-column="6">AdSense Clicks</a> - <a class="toggle-vis" data-column="7">Actual CPC</a> - <a class="toggle-vis" data-column="8">AdSense CPC</a> - <a class="toggle-vis" data-column="9">Taboola CTR</a> - <a class="toggle-vis" data-column="10">AdSense CTR</a> - <a class="toggle-vis" data-column="11">Coverage</a> - <a class="toggle-vis" data-column="12">Total Revenue</a> - <a class="toggle-vis" data-column="13">Profit/Lost</a> - <a class="toggle-vis" data-column="14">Ads RPM</a> - <a class="toggle-vis" data-column="15">Roas</a>
                           <br><br>
                           <table id="example" class="table table-striped table-bordered">
                             <thead>
