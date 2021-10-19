@@ -29,6 +29,8 @@
                   <div class="card-body">
                       
                       <div class="table-responsive">
+                          Columns: <a class="toggle-vis" data-column="0">Status</a> - <a class="toggle-vis" data-column="1">Name</a> - <a class="toggle-vis" data-column="2">Bid</a> - <a class="toggle-vis" data-column="3">Budget</a> - <a class="toggle-vis" data-column="4">Taboola Clicks</a> - <a class="toggle-vis" data-column="5">Sessions</a>
+                          <br><br>
                           <table id="example" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -61,7 +63,7 @@
                                         Total Revenue
                                         ({{ $total_summary['total_revenue'] }})
                                     </th>
-                                    <th>
+                                    <th class="bg-{{ $total_summary['profit_lost'] < 0 ? 'danger' : 'success' }}">
                                         Profit/Lost
                                         @if ($total_summary['profit_lost'] < 0)
                                             ({{ $total_summary['profit_lost'] }})
@@ -69,7 +71,7 @@
                                             {{ $total_summary['profit_lost'] }}
                                         @endif
                                     </th>
-                                    <th>Ads RPM</th>
+                                    <th class="bg-primary">Ads RPM</th>
                                     <th>Roas</th>
                                     <!-- <th>Pageviews per session</th> -->
                                 </tr>
@@ -116,7 +118,7 @@
                                     <!-- profit/lost -->
                                     <td>@if(isset($campaign_level_report->profit_lost)) {{ $campaign_level_report->profit_lost }} @endif</td>
 
-                                    <td>@if(isset($campaign_level_report->ad_rpm)) {{ round($campaign_level_report->ad_rpm, 2) }}@endif</td>
+                                    <td class="bg-info">@if(isset($campaign_level_report->ad_rpm)) {{ round($campaign_level_report->ad_rpm, 2) }}@endif</td>
                                     <td>@if(isset($campaign_level_report->ad_roas)) {{ $campaign_level_report->ad_roas . ' %' }}@endif</td>
                                     <!-- <td>@if(isset($campaign_level_report->ad_views_per_session)) {{ round($campaign_level_report->ad_views_per_session, 2) }}@endif</td> -->
                                 </tr>
@@ -135,9 +137,19 @@
 <script>
     $(document).ready(function() {
         // datatables
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             "pageLength": 20,
             "lengthMenu": [ 10, 20, 50, 75, 100 ]
+        });
+
+        $('a.toggle-vis').on( 'click', function (e) {
+            e.preventDefault();
+    
+            // Get the column API object
+            var column = table.column( $(this).attr('data-column') );
+    
+            // Toggle the visibility
+            column.visible( ! column.visible() );
         });
 
         // $('#example').on( 'search.dt page.dt order.dt', function () {

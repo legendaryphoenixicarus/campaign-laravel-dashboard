@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Site;
+use App\Models\Source;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,6 +43,25 @@ class DatabaseSeeder extends Seeder
 
         foreach ($sites as $site) {
             Site::insert($site);
+        }
+
+        $sources = [
+            [
+                'page_id' => 'campaign_lvl',
+                'sources' => 'status,campaign_name,bid,budget,clicks,sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
+            ],
+            [
+                'page_id' => 'site_lvl',
+                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas,bid,avg_boost'
+            ],
+            [
+                'page_id' => 'account_lvl',
+                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_clicks,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
+            ]
+        ];
+        
+        foreach ($sources as $source) {
+            Source::insert($source);
         }
     }
 }

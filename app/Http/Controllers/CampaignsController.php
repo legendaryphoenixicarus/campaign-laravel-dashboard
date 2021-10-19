@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Analytics;
 use Spatie\Analytics\Period;
 use Carbon\Carbon;
+use App\Models\Source;
 
 class CampaignsController extends Controller
 {
@@ -144,12 +145,16 @@ class CampaignsController extends Controller
         }
         // dd($all_data);
         // exit;
+        
+        // get sources for filtering columns
+        $sources = collect(explode(',', Source::select('sources')->where('page_id', 'campaign_lvl')->first()->sources));
 
         return view('campaigns.campaign_level', [
             "campaign_level_reports" => $all_data,
             "total_summary" => $total_summary,
             "start_date" => $start_date,
-            "end_date" => $end_date
+            "end_date" => $end_date,
+            'sources' => $sources,
         ]);
     }
 
