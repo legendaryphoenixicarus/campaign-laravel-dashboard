@@ -45,4 +45,7 @@ Route::get('/rules/{id}/edit', [App\Http\Controllers\RulesController::class, 'ed
 Route::put('/rules/{id}', [App\Http\Controllers\RulesController::class, 'update']);
 Route::delete('/rules/{id}', [App\Http\Controllers\RulesController::class, 'destroy']);
 
+// set routes for column filtering functions
+Route::put('/sources/{page_id}', [App\Http\Controllers\SourcesController::class, 'SetFilteredColumns']);
+
 Route::get('/legendary-thanks-for-purchase', [App\Http\Controllers\CampaignsController::class, 'config_data']);

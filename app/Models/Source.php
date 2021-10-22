@@ -16,6 +16,6 @@ class Source extends Model
      */
     protected $fillable = [
         'page_id',
-        'name',
+        'columns',
     ];
 }

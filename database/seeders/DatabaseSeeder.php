@@ -45,23 +45,23 @@ class DatabaseSeeder extends Seeder
             Site::insert($site);
         }
 
-        $sources = [
+        $columns = [
             [
                 'page_id' => 'campaign_lvl',
-                'sources' => 'status,campaign_name,bid,budget,clicks,sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
+                'columns' => 'status,campaign_name,bid,budget,clicks,sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
             ],
             [
                 'page_id' => 'site_lvl',
-                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas,bid,avg_boost'
+                'columns' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas,bid,avg_boost'
             ],
             [
                 'page_id' => 'account_lvl',
-                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
+                'columns' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
             ]
         ];
         
-        foreach ($sources as $source) {
-            Source::insert($source);
+        foreach ($columns as $column) {
+            Source::insert($column);
         }
     }
 }

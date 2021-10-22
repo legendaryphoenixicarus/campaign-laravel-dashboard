@@ -26,6 +26,8 @@
                 <div class="card-header" id="campaign-id" data-campaign-id="{{ $campaign->id }}">{{ $campaign->name }}</div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#columnsModal">Filter Columns</button><br><br>
                         <table id="example" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -137,6 +139,36 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="columnsModal" tabindex="-1" role="dialog" aria-labelledby="columnsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="columnsModalLabel">Filterable columns</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form action="/sources" id="columns-form" method="post">
+                @csrf
+                @method('PUT')
+                @foreach ($filterable_columns as $column => $column_name)
+                    <div class="form-check">
+                        <label class="form-check-label" for="{{ $column }}">
+                            <input type="checkbox" class="form-check-input toggle-vis" id="{{ $column }}" name="columns[]" value="{{ $column }}" data-column="{{ $loop->index }}" @if ($sources->contains($column)) {{ 'checked' }} @endif>{{ $column_name }}
+                        </label>
+                    </div>
+                @endforeach
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="set-filtered-columns" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -146,9 +178,27 @@
         $("input[type='number']").inputSpinner();
     
         // datatables
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             "pageLength": 20,
             "lengthMenu": [ 10, 20, 50, 75, 100 ]
+        });
+
+        function setColumnVisible(check) {
+            // Get the column API object
+            var column = table.column( $(check).attr('data-column') );
+
+            // Toggle the visibility
+            column.visible( $(check).prop('checked') );
+        }
+
+        // get all filtered columns from database and set visible of columns according to the filtered columns
+        $('.toggle-vis').each(function () {
+            setColumnVisible(this);
+        })
+
+        // filter columns
+        $('.toggle-vis').on( 'click', function (e) {
+            setColumnVisible(this);
         });
 
         // daterangepicker
@@ -215,6 +265,16 @@
                 "cpc_modification": cpcModification
             });
         })
+        
+        // save filtered columns in the database
+        $(document).on('click', '#set-filtered-columns', function () {
+            var form = $('#columns-form');
+
+            var formData = form.serializeArray();
+            console.log(formData);
+
+            sendAjaxRequest('/sources/site_lvl', 'PUT', formData)
+        });
 
         function sendAjaxRequest(url, method, data) {
             $("#overlay").fadeIn(300);
@@ -225,12 +285,6 @@
                 type: method,
                 url: url,
                 data: data,
-                success: function(response)
-                {
-                    console.log(JSON.parse(response.result));
-                    // window.location.href = window.location.href;
-
-                },
                 complete: function (response) {
                     setTimeout(function(){
                         $("#overlay").fadeOut(300);

@@ -146,8 +146,8 @@ class CampaignsController extends Controller
         // dd($all_data);
         // exit;
         
-        // get sources for filtering columns
-        $sources = collect(explode(',', Source::select('sources')->where('page_id', 'campaign_lvl')->first()->sources));
+        // get filtered columns
+        $sources = collect(explode(',', Source::select('columns')->where('page_id', 'campaign_lvl')->first()->columns));
 
         return view('campaigns.campaign_level', [
             "campaign_level_reports" => $all_data,
@@ -276,6 +276,9 @@ class CampaignsController extends Controller
                 }
             }
         }
+        
+        // get filtered columns
+        $sources = collect(explode(',', Source::select('columns')->where('page_id', 'site_lvl')->first()->columns));
 
         return view('campaigns.site_level', [
             'campaign' => $campaign,
@@ -283,6 +286,8 @@ class CampaignsController extends Controller
             'summary_reports' => $all_data,
             'start_date' => $start_date,
             'end_date' => $end_date,
+            'sources' => $sources,
+            'filterable_columns' => config('app.columns_for.site_lvl')
         ]);
     }
 
@@ -372,12 +377,17 @@ class CampaignsController extends Controller
                 }
             }
         }
+        
+        // get filtered columns
+        $sources = collect(explode(',', Source::select('columns')->where('page_id', 'account_lvl')->first()->columns));
 
         return view('campaigns.account_level', [
             "publishers" => $publishers,
             "total_summary" => $total_summary,
             'start_date' => $start_date,
-            'end_date' => $end_date
+            'end_date' => $end_date,
+            'sources' => $sources,
+            'filterable_columns' => config('app.columns_for.account_lvl')
         ]);
     }
 

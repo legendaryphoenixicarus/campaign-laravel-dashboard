@@ -143,11 +143,13 @@
         </button>
       </div>
       <div class="modal-body">
-            <form action="/action_page.php">
+            <form action="/sources" id="columns-form" method="post">
+                @csrf
+                @method('PUT')
                 @foreach ($filterable_columns as $column => $column_name)
                     <div class="form-check">
                         <label class="form-check-label" for="{{ $column }}">
-                            <input type="checkbox" class="form-check-input toggle-vis" id="{{ $column }}" name="columns[]" value="{{ $column }}" data-column="{{ $loop->index }}">{{ $column_name }}
+                            <input type="checkbox" class="form-check-input toggle-vis" id="{{ $column }}" name="columns[]" value="{{ $column }}" data-column="{{ $loop->index }}" @if ($sources->contains($column)) {{ 'checked' }} @endif>{{ $column_name }}
                         </label>
                     </div>
                 @endforeach
@@ -155,7 +157,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" id="set-filtered-columns" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
     </div>
   </div>
@@ -171,23 +173,23 @@
             "lengthMenu": [ 10, 20, 50, 75, 100 ]
         });
 
-        $('.toggle-vis').on( 'click', function (e) {
-            e.preventDefault();
-    
+        function setColumnVisible(check) {
             // Get the column API object
-            var column = table.column( $(this).attr('data-column') );
-    
-            // Toggle the visibility
-            column.visible( ! column.visible() );
-        });
+            var column = table.column( $(check).attr('data-column') );
 
-        // $('#example').on( 'search.dt page.dt order.dt', function () {
-        //     // bootstrap toogle button
-        //     $('.toggle-status').bootstrapToggle({
-        //         on: 'Running',
-        //         off: 'Paused'
-        //     });
-        // } );
+            // Toggle the visibility
+            column.visible( $(check).prop('checked') );
+        }
+
+        // get all filtered columns from database and set visible of columns according to the filtered columns
+        $('.toggle-vis').each(function () {
+            setColumnVisible(this);
+        })
+
+        // filter columns
+        $('.toggle-vis').on( 'click', function (e) {
+            setColumnVisible(this);
+        });
 
         // var start = moment().subtract(29, 'days');
         var start = moment($('#start-date').data('start-date'));
@@ -244,21 +246,25 @@
             });
         });
 
-        // // bootstrap toogle button
-        // $('.toggle-status').bootstrapToggle({
-        //     on: 'Running',
-        //     off: 'Paused'
-        // });
-
         $(document).on('change', '.toggle-status', function() {
             const campaign = $(this).closest('tr').find('.campaign-id').data('campaign-id');
 
             sendAjaxRequest('/campaigns/' + campaign, "PUT", {
                 "body" : {
                     'is_active' : $(this).prop('checked')
-                }   
+                }
             });
         })
+        
+        // save filtered columns in the database
+        $(document).on('click', '#set-filtered-columns', function () {
+            var form = $('#columns-form');
+
+            var formData = form.serializeArray();
+            console.log(formData);
+
+            sendAjaxRequest('/sources/campaign_lvl', 'PUT', formData)
+        });
 
         function sendAjaxRequest(url, method, data) {
             $("#overlay").fadeIn(300);　
@@ -269,10 +275,6 @@
                 type: method,
                 url: url,
                 data: data,
-                success: function(response)
-                {
-                    console.log(JSON.parse(response.result));
-                },
                 complete: function (response) {
                     setTimeout(function(){
                         $("#overlay").fadeOut(300);

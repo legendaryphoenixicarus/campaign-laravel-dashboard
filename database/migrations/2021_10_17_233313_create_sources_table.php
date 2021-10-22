@@ -17,7 +17,7 @@ class CreateSourcesTable extends Migration
             $table->id();
 
             $table->string('page_id');
-            $table->string('sources')->nullable();
+            $table->string('columns')->nullable();
 
             $table->timestamps();
         });
