@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'page_id' => 'account_lvl',
-                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_clicks,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
+                'sources' => 'blocking_level,site_name,clicks,ad_sessions,ad_clicks,cpc,ad_cpc,ctr,ad_ctr,coverage,spent,ad_revenue,profit_lost,ad_rpm,ad_roas'
             ]
         ];
         

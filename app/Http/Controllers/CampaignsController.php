@@ -155,6 +155,7 @@ class CampaignsController extends Controller
             "start_date" => $start_date,
             "end_date" => $end_date,
             'sources' => $sources,
+            'filterable_columns' => config('app.columns_for.campaign_lvl')
         ]);
     }
 
