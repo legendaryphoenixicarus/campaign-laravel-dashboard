@@ -110,6 +110,7 @@
 
         @include('includes.ajaxspinner')
         @include('includes.toast')
+        @include('includes.columns_modal')
     </div>
 
 </body>
