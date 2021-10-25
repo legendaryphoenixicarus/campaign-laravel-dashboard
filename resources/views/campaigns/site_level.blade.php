@@ -119,7 +119,7 @@
                                         
                                         <td class="bg-info">@if(isset($summary_report->ad_rpm)) {{ round($summary_report->ad_rpm, 3) }}@endif</td>
                                         <td>@if(isset($summary_report->ad_roas)) {{ $summary_report->ad_roas . ' %' }}@endif</td>
-                                        <td class="bid">
+                                        <td class="bid" data-current-boost="{{ $summary_report->avg_boost }}">
                                             {{ round($summary_report->bid, 3, PHP_ROUND_HALF_UP) }}
                                         </td>
                                         <td class="flex flex-row justify-center" style="display: flex; flex-direction: row; width: 250px;">
@@ -138,6 +138,36 @@
             </div>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="columnsModal" tabindex="-1" role="dialog" aria-labelledby="columnsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="columnsModalLabel">Filterable columns</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form action="/sources" id="columns-form" method="post">
+                @csrf
+                @method('PUT')
+                @foreach ($filterable_columns as $column => $column_name)
+                    <div class="form-check">
+                        <label class="form-check-label" for="{{ $column }}">
+                            <input type="checkbox" class="form-check-input toggle-vis" id="{{ $column }}" name="columns[]" value="{{ $column }}" data-column="{{ $loop->index }}" @if ($sources->contains($column)) {{ 'checked' }} @endif>{{ $column_name }}
+                        </label>
+                    </div>
+                @endforeach
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="set-filtered-columns" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -226,9 +256,10 @@
             const avgBoost = $(this).closest('td').find('.avg-boost').val();
             const cpcModification = 1 + avgBoost / 100;
             
-            // // change bid value for updated value
-            // const bid = $(this).closest('tr').find('.bid').text();
-            // $(this).closest('tr').find('.bid').html(bid * cpcModification);
+            // change bid value for updated value
+            const bid = $(this).closest('tr').find('.bid').text();
+            const previousBoost = $(this).closest('tr').find('.bid').data('current-boost');
+            $(this).closest('tr').find('.bid').html(round(bid / (1 + previousBoost) * cpcModification));
             
             sendAjaxRequest('/campaigns/' + campaign, "PATCH", {
                 "target": site,
