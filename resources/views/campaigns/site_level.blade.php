@@ -119,11 +119,11 @@
                                         
                                         <td class="bg-info">@if(isset($summary_report->ad_rpm)) {{ round($summary_report->ad_rpm, 3) }}@endif</td>
                                         <td>@if(isset($summary_report->ad_roas)) {{ $summary_report->ad_roas . ' %' }}@endif</td>
-                                        <td class="bid" data-current-boost="{{ $summary_report->avg_boost }}">
+                                        <td class="bid" data-previous-boost="{{ $summary_report->avg_boost }}">
                                             {{ round($summary_report->bid, 3, PHP_ROUND_HALF_UP) }}
                                         </td>
-                                        <td class="flex flex-row justify-center" style="display: flex; flex-direction: row; width: 250px;">
-                                            <input data-suffix="%" value="{{ $summary_report->avg_boost }}" class="avg-boost" min="-100" max="100" type="number" data-decimals="2" step="10"/>
+                                        <td class="flex flex-row justify-center" style="display: flex; flex-direction: row; width: 300px;">
+                                            <input data-suffix="%" data-prefix="{{ round($summary_report->bid, 3, PHP_ROUND_HALF_UP) }} / " value="{{ $summary_report->avg_boost }}" class="avg-boost" min="-100" max="100" type="number" data-decimals="2" step="10"/>
                                             <button type="button" class="btn btn-sm btn-primary set-cpc-modification">Set</button>
                                         </td>
                                         <!-- <td>@if(isset($summary_report->ad_views_per_session)) {{ round($summary_report->ad_views_per_session, 3) }}@endif</td> -->
@@ -258,13 +258,19 @@
             
             // change bid value for updated value
             const bid = $(this).closest('tr').find('.bid').text();
-            const previousBoost = $(this).closest('tr').find('.bid').data('current-boost');
-            $(this).closest('tr').find('.bid').html(round(bid / (1 + previousBoost) * cpcModification));
+            const previousBoost = $(this).closest('tr').find('.bid').data('previous-boost');
+            $(this).closest('tr').find('.bid').html((bid / (1 + previousBoost / 100) * cpcModification).toFixed(3));
             
             sendAjaxRequest('/campaigns/' + campaign, "PATCH", {
                 "target": site,
                 "cpc_modification": cpcModification
             });
+        });
+
+        $(document).on('change', '.avg-boost', function () {
+            const bid = $(this).closest('tr').find('.bid').text();
+            const previousBoost = $(this).closest('tr').find('.bid').data('previous-boost');
+            $($(this).closest('td').find('.input-group-text')[0]).text((bid / (1 + previousBoost / 100) * (1 + $(this).val() / 100)).toFixed(3) + ' / ');
         })
         
         // save filtered columns in the database
@@ -287,6 +293,7 @@
                 url: url,
                 data: data,
                 complete: function (response) {
+                    console.log(response)
                     setTimeout(function(){
                         $("#overlay").fadeOut(300);
                     },500);
